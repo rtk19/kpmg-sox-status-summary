@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap");
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+
+@source "../src";
+
+@font-face {
+  font-family: "Heebo";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/heebo-hebrew-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0300-036F, U+0590-05FF, U+2000-206F, U+20AA, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: "Heebo";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/heebo-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: "Heebo", system-ui, sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-ring-offset-background: hsl(var(--background));
+
+  --color-blue-50: hsl(var(--blue-50));
+  --color-blue-100: hsl(var(--blue-100));
+  --color-blue-200: hsl(var(--blue-200));
+  --color-blue-400: hsl(var(--blue-400));
+  --color-blue-600: hsl(var(--blue-600));
+  --color-blue-800: hsl(var(--blue-800));
+  --color-blue-900: hsl(var(--blue-900));
+
+  --color-teal-50: hsl(var(--teal-50));
+  --color-teal-400: hsl(var(--teal-400));
+  --color-teal-600: hsl(var(--teal-600));
+  --color-teal-800: hsl(var(--teal-800));
+
+  --color-brandred-50: hsl(var(--red-50));
+  --color-brandred-400: hsl(var(--red-400));
+  --color-brandred-600: hsl(var(--red-600));
+
+  --color-brandgray-50: hsl(var(--gray-50));
+  --color-brandgray-100: hsl(var(--gray-100));
+  --color-brandgray-200: hsl(var(--gray-200));
+  --color-brandgray-400: hsl(var(--gray-400));
+  --color-brandgray-600: hsl(var(--gray-600));
+
+  --color-textc-primary: hsl(var(--text-primary));
+  --color-textc-secondary: hsl(var(--text-secondary));
+  --color-textc-tertiary: hsl(var(--text-tertiary));
+}
+
+:root {
+  --radius: 0.5rem;
+
+  --background: 0 0% 100%;
+  --foreground: 0 0% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 10%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 10%;
+
+  --blue-50: 207 79% 94%;
+  --blue-100: 211 76% 83%;
+  --blue-200: 211 73% 72%;
+  --blue-400: 211 71% 54%;
+  --blue-600: 211 75% 37%;
+  --blue-800: 211 82% 27%;
+  --blue-900: 213 87% 17%;
+
+  --gray-50: 47 22% 93%;
+  --gray-100: 48 11% 80%;
+  --gray-200: 48 6% 68%;
+  --gray-400: 51 4% 52%;
+  --gray-600: 45 3% 37%;
+
+  --teal-50: 158 50% 92%;
+  --teal-400: 161 70% 37%;
+  --teal-600: 167 76% 25%;
+  --teal-800: 169 75% 17%;
+
+  --red-50: 0 73% 95%;
+  --red-400: 1 71% 59%;
+  --red-600: 0 57% 41%;
+
+  --primary: 211 75% 37%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 47 22% 93%;
+  --secondary-foreground: 0 0% 10%;
+
+  --muted: 47 22% 96%;
+  --muted-foreground: 45 3% 37%;
+
+  --accent: 207 79% 94%;
+  --accent-foreground: 211 82% 27%;
+
+  --destructive: 1 71% 59%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 0 0% 88%;
+  --input: 0 0% 88%;
+  --ring: 211 75% 37%;
+
+  --text-primary: 0 0% 10%;
+  --text-secondary: 0 0% 40%;
+  --text-tertiary: 0 0% 60%;
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html,
+  body,
+  #root,
+  main,
+  button,
+  input,
+  select,
+  textarea,
+  optgroup,
+  [role="button"],
+  [role="dialog"] {
+    font-family: "Heebo", system-ui, sans-serif !important;
+  }
+
+  html {
+    direction: rtl;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
