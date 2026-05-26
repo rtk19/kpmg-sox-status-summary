@@ -184,7 +184,7 @@ function Index() {
           </DialogTrigger>
           <DialogContent dir="rtl" className="max-w-md">
             <DialogHeader>
-              <DialogTitle className="text-right">עזרה</DialogTitle>
+              <DialogTitle className="text-right">איך זה עובד?</DialogTitle>
             </DialogHeader>
             <Tabs defaultValue="how" dir="rtl" className="w-full">
               <TabsList className="grid grid-cols-2 w-full">
@@ -192,7 +192,10 @@ function Index() {
                 <TabsTrigger value="template">תבנית הקובץ</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="how" className="text-right text-sm text-textc-secondary space-y-3 leading-relaxed mt-4 h-[420px] overflow-y-auto pl-1">
+              <TabsContent
+                value="how"
+                className="text-right text-sm text-textc-secondary space-y-3 leading-relaxed mt-4 h-[420px] overflow-y-auto pl-1"
+              >
                 <p>
                   הכלי מקבל קבצי <strong>Excel (xlsx בלבד)</strong> של מטריצות בקרות SOX, מזהה אוטומטית את שורת הכותרת,
                   עמודות הסטטוס, עמודת המפתח ועמודת התהליך בכל גיליון.
@@ -216,14 +219,21 @@ function Index() {
                 <p className="text-sm font-medium text-textc-primary">הקובץ המעובד יורד אוטומטית בסיום העיבוד.</p>
               </TabsContent>
 
-              <TabsContent value="template" className="text-right text-sm text-textc-secondary space-y-3 leading-relaxed mt-4 h-[420px] overflow-y-auto pl-1">
+              <TabsContent
+                value="template"
+                className="text-right text-sm text-textc-secondary space-y-3 leading-relaxed mt-4 h-[420px] overflow-y-auto pl-1"
+              >
                 <p>
-                  כדי שגיליון יעובד, עליו להכיל את הרכיבים הבאים. גיליונות שאינם תואמים לתבנית — <strong>ידולגו אוטומטית</strong>, והשאר יעובדו כרגיל.
+                  כדי שגיליון יעובד, עליו להכיל את הרכיבים הבאים. גיליונות שאינם תואמים לתבנית —{" "}
+                  <strong>ידולגו אוטומטית</strong>, והשאר יעובדו כרגיל.
                 </p>
 
                 <div>
                   <div className="font-medium text-textc-primary mb-1">שורת כותרת</div>
-                  <p>שורה אחת לפחות עם כותרות עמודות בעברית או באנגלית. ההתאמה של שמות העמודות היא מדויקת (אחרי הסרת רווחים).</p>
+                  <p>
+                    שורה אחת לפחות עם כותרות עמודות בעברית או באנגלית. ההתאמה של שמות העמודות היא מדויקת (אחרי הסרת
+                    רווחים).
+                  </p>
                 </div>
 
                 <div>
@@ -234,10 +244,13 @@ function Index() {
                       <div className="mt-1 text-[12px] bg-muted border border-border rounded px-2 py-1 leading-relaxed">
                         מסקנה · סטטוס · בקרה · מסקנה סבב א' · מסקנה סבב ב' · status · conclusion · control · results
                       </div>
-                      <div className="text-[12px] text-textc-tertiary mt-1">ניתן להופיע מספר עמודות סטטוס (סבב א', סבב ב' וכו') — כולן יסוכמו.</div>
+                      <div className="text-[12px] text-textc-tertiary mt-1">
+                        ניתן להופיע מספר עמודות סטטוס (סבב א', סבב ב' וכו') — כולן יסוכמו.
+                      </div>
                     </li>
                     <li>
-                      <span className="font-medium text-textc-primary">שורות נתונים</span> — בכל שורה מתחת לכותרת חייב להיות ערך באחת מ-3 העמודות הראשונות (A / B / C). שורות ריקות מסיימות את הטבלה.
+                      <span className="font-medium text-textc-primary">שורות נתונים</span> — בכל שורה מתחת לכותרת חייב
+                      להיות ערך באחת מ-3 העמודות הראשונות (A / B / C). שורות ריקות מסיימות את הטבלה.
                     </li>
                   </ul>
                 </div>
@@ -246,15 +259,20 @@ function Index() {
                   <div className="font-medium text-textc-primary mb-1">עמודות רשות (משפרות את הסיכום)</div>
                   <ul className="list-disc pr-5 space-y-2">
                     <li>
-                      <span className="font-medium text-textc-primary">תהליך</span> — כותרת: <code>תהליך</code> או <code>process</code>.
-                      <div className="text-[12px] text-textc-tertiary mt-1">לא יזוהו עמודות כמו "Sub Process" / "שם תהליך משנה". אם חסרה — כל הבקרות יסוכמו תחת תהליך יחיד.</div>
+                      <span className="font-medium text-textc-primary">תהליך</span> — כותרת: <code>תהליך</code> או{" "}
+                      <code>process</code>.
+                      <div className="text-[12px] text-textc-tertiary mt-1">
+                        לא יזוהו עמודות כמו "Sub Process" / "שם תהליך משנה". אם חסרה — כל הבקרות יסוכמו תחת תהליך יחיד.
+                      </div>
                     </li>
                     <li>
                       <span className="font-medium text-textc-primary">בקרת מפתח</span> — אחת מהכותרות:
                       <div className="mt-1 text-[12px] bg-muted border border-border rounded px-2 py-1 leading-relaxed">
                         מפתח · בקרת מפתח · key · key control
                       </div>
-                      <div className="text-[12px] text-textc-tertiary mt-1">בקרות עם הערך <code>Yes</code> / <code>Y / כן</code> ייספרו כבקרות מפתח.</div>
+                      <div className="text-[12px] text-textc-tertiary mt-1">
+                        בקרות עם הערך <code>Yes</code> / <code>Y / כן</code> ייספרו כבקרות מפתח.
+                      </div>
                     </li>
                     <li>
                       <span className="font-medium text-textc-primary">מס׳ בקרה / ID</span> — לדוגמה:
