@@ -1,0 +1,10 @@
+@font-face {font-family: Heebo; src: url('/fonts/heebo-hebrew-latin.woff2') format('woff2');}
+@font-face {font-family: Heebo; src: url('/fonts/heebo-latin-ext.woff2') format('woff2');}
+body {font-family: Heebo, system-ui, sans-serif; background:#fff; color:#1a1a1a; margin:0}
+.container{max-width:520px;margin:0 auto;padding:32px 16px;text-align:center}
+.logo{width:120px;margin-bottom:16px}
+.dropzone{border:2px dashed #cfd8e3;border-radius:12px;padding:28px;background:#f8fafc;cursor:pointer}
+.dropzone.drag{background:#eaf3ff;border-color:#1f6fb2}
+#files{display:none}
+#fileList{list-style:none;padding:0;text-align:right}
+button{margin-top:10px;background:#1f6fb2;color:white;border:none;border-radius:10px;padding:10px 18px}

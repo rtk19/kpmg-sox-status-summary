@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOX Status Summary</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <main class="container">
+    <img src="{{ url_for('assets', filename='kpmg-logo.png') }}" class="logo" />
+    <h1>SOX Status Summary</h1>
+    <p>העלה קבצי xlsx לקבלת קובץ סיכום מעובד</p>
+
+    <div id="dropzone" class="dropzone">
+      <input id="files" type="file" multiple accept=".xlsx" />
+      <div>גרור קבצים לכאן או לחץ לבחירה</div>
+    </div>
+    <ul id="fileList"></ul>
+    <button id="runBtn">עבד קבצים</button>
+    <div id="status"></div>
+  </main>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
