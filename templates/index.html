@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOX Status Summary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>SOX Status Summary</h1>
+      <p>העלה קבצי Excel מסוג xlsx כדי ליצור קובץ מסכם.</p>
+      <form action="/api/process" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" multiple accept=".xlsx" required />
+        <button type="submit">עבד והורד</button>
+      </form>
+    </main>
+  </body>
+</html>
