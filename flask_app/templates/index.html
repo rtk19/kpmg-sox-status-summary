@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>סכימת סטטוסים — KPMG SOX</title>
+    <meta name="description" content="כלי לעיבוד אוטומטי של מטריצות בקרות SOX" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <div class="topbar">
+        <button id="helpButton" type="button" aria-label="עזרה" class="icon-button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 1 1 5.83 1c-.72 1.2-1.92 1.48-2.52 2.36-.28.4-.4.84-.4 1.64"></path><path d="M12 17h.01"></path></svg>
+        </button>
+        <img src="{{ url_for('static', filename='kpmg-logo.png') }}" alt="KPMG" class="logo" />
+      </div>
+
+      <header class="hero">
+        <div class="pill">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          SOX
+        </div>
+        <h1>סכימת <span>סטטוסים</span></h1>
+        <p>העלו קובץ/י אקסל לעיבוד אוטומטי של בקרות</p>
+      </header>
+
+      <section class="panel">
+        <div id="uploadView">
+          <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="גררו לכאן קבצי Excel או לחצו לעיון">
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m17 8-5-5-5 5"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path></svg>
+            </div>
+            <p class="drop-title">גררו לכאן את הקבצים</p>
+            <p class="drop-copy">או <button id="browseButton" type="button">לחצו לעיון</button> בקבצים</p>
+            <p class="drop-note">ניתן לבחור מספר קבצי xlsx</p>
+          </div>
+
+          <input id="fileInput" type="file" accept=".xlsx" multiple hidden />
+          <ul id="fileList" class="file-list"></ul>
+
+          <div id="errorBox" class="error-box" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+            <span id="errorText"></span>
+          </div>
+
+          <button id="submitButton" type="button" class="submit-button" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+            <span>שליחה לעיבוד</span>
+          </button>
+        </div>
+
+        <div id="loadingView" class="loading-view" hidden>
+          <div class="spinner" role="status" aria-label="מעבד..."></div>
+          <div class="loading-title">מעבד את הקובץ...</div>
+          <div id="loadingStep" class="loading-step">מנתח מבנה הגיליונות...</div>
+          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        </div>
+
+        <div id="successView" class="success-view" hidden>
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          </div>
+          <div class="success-title">העיבוד הושלם בהצלחה!</div>
+          <div class="success-copy">הקובץ נוצר עם גיליונות הסטטוסים המעודכנים</div>
+          <button id="redownloadButton" type="button" class="download-button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+            הורד קובץ
+          </button>
+          <button id="resetButton" type="button" class="reset-button">עיבוד קובץ נוסף</button>
+        </div>
+      </section>
+
+      <footer>SOX Summary of Controls · v0.1</footer>
+    </main>
+
+    <div id="helpDialog" class="dialog-backdrop" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+        <button id="closeHelpButton" type="button" class="dialog-close" aria-label="סגור">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+        <h2 id="helpTitle">איך זה עובד?</h2>
+        <div class="tabs" role="tablist" aria-label="עזרה">
+          <button id="howTab" class="tab active" type="button" role="tab" aria-selected="true">עזרה</button>
+          <button id="templateTab" class="tab" type="button" role="tab" aria-selected="false">תבנית הקובץ</button>
+        </div>
+
+        <div id="howContent" class="tab-content">
+          <p>הכלי מקבל קבצי <strong>Excel (xlsx בלבד)</strong> של מטריצות בקרות SOX, מזהה אוטומטית את שורת הכותרת, עמודות הסטטוס, עמודת המפתח ועמודת התהליך בכל גיליון.</p>
+          <div>
+            <div class="help-heading">מה אפשר להעלות:</div>
+            <ul>
+              <li>קובץ xlsx אחד או יותר (גרירה או בחירה).</li>
+              <li>גיליונות בעברית או באנגלית — מעורבים גם יחד.</li>
+              <li>טבלאות עם עמודות סטטוס מרובות (סבבים).</li>
+            </ul>
+          </div>
+          <div>
+            <div class="help-heading">מה תקבל בפלט:</div>
+            <ul>
+              <li>קובץ xlsx יחיד עם כל הגיליונות המקוריים.</li>
+              <li>גיליון "סיכום" אחד עם שורה לכל (גיליון × תהליך × סבב).</li>
+              <li>אם זוהו שתי שפות — נוצר סיכום באנגלית.</li>
+            </ul>
+          </div>
+          <p class="help-strong">הקובץ המעובד יורד אוטומטית בסיום העיבוד.</p>
+        </div>
+
+        <div id="templateContent" class="tab-content" hidden>
+          <p>כדי שגיליון יעובד, עליו להכיל את הרכיבים הבאים. גיליונות שאינם תואמים לתבנית — <strong>ידולגו אוטומטית</strong>, והשאר יעובדו כרגיל.</p>
+          <div>
+            <div class="help-heading">שורת כותרת</div>
+            <p>שורה אחת לפחות עם כותרות עמודות בעברית או באנגלית. ההתאמה של שמות העמודות היא מדויקת (אחרי הסרת רווחים).</p>
+          </div>
+          <div>
+            <div class="help-heading">עמודות חובה</div>
+            <ul>
+              <li>
+                <span class="help-heading inline">עמודת מסקנה / סטטוס</span> — אחת מהכותרות הבאות:
+                <div class="code-pill">מסקנה · סטטוס · בקרה · מסקנה סבב א' · מסקנה סבב ב' · status · conclusion · control · results</div>
+                <div class="small-note">ניתן להופיע מספר עמודות סטטוס (סבב א', סבב ב' וכו') — כולן יסוכמו.</div>
+              </li>
+              <li>
+                <span class="help-heading inline">שורות נתונים</span> — בכל שורה מתחת לכותרת חייב להיות ערך באחת מ-3 העמודות הראשונות (A / B / C). שורות ריקות מסיימות את הטבלה.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div class="help-heading">עמודות רשות (משפרות את הסיכום)</div>
+            <ul>
+              <li>
+                <span class="help-heading inline">תהליך</span> — כותרת: <code>תהליך</code> או <code>process</code>.
+                <div class="small-note">לא יזוהו עמודות כמו "Sub Process" / "שם תהליך משנה". אם חסרה — כל הבקרות יסוכמו תחת תהליך יחיד.</div>
+              </li>
+              <li>
+                <span class="help-heading inline">בקרת מפתח</span> — אחת מהכותרות:
+                <div class="code-pill">מפתח · בקרת מפתח · key · key control</div>
+                <div class="small-note">בקרות עם הערך <code>Yes</code> / <code>Y / כן</code> ייספרו כבקרות מפתח.</div>
+              </li>
+              <li>
+                <span class="help-heading inline">מס׳ בקרה / ID</span> — לדוגמה:
+                <div class="code-pill">מס · מס' · מספר · מס בקרה · control number · control no · id · no</div>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <div class="help-heading">ערכים שלא נספרים בסטטוס</div>
+            <p>הערכים הבאים בעמודת הסטטוס לא ייספרו כסטטוס שבוצע:</p>
+            <div class="code-pill">ריק · לא מפתח · not key · IT · שנתי · annual</div>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <span>נתקלת בבעיות?</span>
+          <a href="mailto:refaelbar@KPMG.com;ybetito@KPMG.com?subject=נתקלתי בבעיה בכלי סכימת בקרות">פניה לצוות</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
